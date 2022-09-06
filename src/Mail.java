@@ -6,6 +6,11 @@ public abstract class Mail {
     protected String address;
     protected double price;
 
+    public Mail(Date date, String address) {
+        this.date = date;
+        this.address = address;
+    }
+
     public Date getDate() {
         return date;
     };

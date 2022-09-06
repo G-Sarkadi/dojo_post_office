@@ -1,22 +1,23 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class PostOffice {
 
-    private ArrayList<Mail> packages;
+    private List<Mail> packages;
 
     public PostOffice() {
-        this.packages = new ArrayList<Mail>();
+        this.packages = new ArrayList<>();
     }
 
     public void createItem(Type type, String address, Date date, double weight) {
         if (type == Type.SMALL) {
-            storeItem(new SmallBox(Type.SMALL, address, date, weight));
+            storeItem(new SmallBox(address, date, weight));
         } else if (type == Type.BIG) {
-            storeItem(new SmallBox(Type.BIG, address, date, weight));
+            storeItem(new SmallBox(address, date, weight));
         } else if (type == Type.LETTER) {
-            storeItem(new Letter(Type.LETTER, address, date));
+            storeItem(new Letter(address, date));
         }
     }
 
@@ -24,7 +25,7 @@ public class PostOffice {
         packages.add(mail);
     }
 
-    public double totalIncome() {
+    public double calculateTotalIncome() {
         double income = 0;
         for (Mail mail: packages) {
             income += mail.getPrice();
@@ -32,10 +33,10 @@ public class PostOffice {
         return income;
     }
 
-    public ArrayList<Mail> filterByDate(Date date) {
-        ArrayList<Mail> mailsOnDate = new ArrayList<>();
+    public List<Mail> filterByDate(Date date) {
+        List<Mail> mailsOnDate = new ArrayList<>();
         for (Mail mail:packages) {
-            if (Objects.equals(mail.getDate(), date)) {
+            if (mail.getDate().equals(date)) {
                 mailsOnDate.add(mail);
             }
         }
